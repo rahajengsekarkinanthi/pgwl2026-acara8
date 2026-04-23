@@ -77,7 +77,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="geometry_polyline" class="form-label">Geometry</label>
-                            <textarea class="form-control" id="geometry_polyline" name="geometry_polyline" rows="3"></textarea>
+                            <textarea class="form-control" id="geometry_polyline" name="geometry_polyline"
+                                rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -108,7 +109,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="geometry_polygon" class="form-label">Geometry</label>
-                            <textarea class="form-control" id="geometry_polygon" name="geometry_polygon" rows="3"></textarea>
+                            <textarea class="form-control" id="geometry_polygon" name="geometry_polygon"
+                                rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -198,5 +200,71 @@
 
             drawnItems.addLayer(layer);
         });
+
+        var points = L.geoJSON(null, {
+            onEachFeature: function (feature, layer) {
+                var popup_content =
+                    "Nama: " + feature.properties.name + "<br>" +
+                    "Deskripsi: " + feature.properties.description + "<br>" +
+                    "Dibuat: " + feature.properties.created_at;
+
+                layer.bindPopup(popup_content);
+            }
+        })
+
+        // Ambil data GeoJSON dari route Laravel
+        $.getJSON("{{ route('geojson_points') }}", function (data) {
+            points.addData(data); // Tambahkan data ke layer
+            map.addLayer(points); // Tampilkan layer di peta
+        });
+
+        var polylines = L.geoJSON(null, {
+            onEachFeature: function (feature, layer) {
+                var popup_content =
+                    "Nama: " + feature.properties.name + "<br>" +
+                    "Deskripsi: " + feature.properties.description + "<br>" +
+                    "Dibuat: " + feature.properties.created_at;
+
+                layer.bindPopup(popup_content);
+            }
+        })
+
+        // Ambil data GeoJSON dari route Laravel
+        $.getJSON("{{ route('geojson_polylines') }}", function (data) {
+            polylines.addData(data); // Tambahkan data ke layer
+            map.addLayer(polylines); // Tampilkan layer di peta
+        });
+
+        var polygons = L.geoJSON(null, {
+            onEachFeature: function (feature, layer) {
+                var popup_content =
+                    "Nama: " + feature.properties.name + "<br>" +
+                    "Deskripsi: " + feature.properties.description + "<br>" +
+                    "Dibuat: " + feature.properties.created_at;
+
+                layer.bindPopup(popup_content);
+            }
+        })
+
+        // Ambil data GeoJSON dari route Laravel
+        $.getJSON("{{ route('geojson_polygons') }}", function (data) {
+            polygons.addData(data); // Tambahkan data ke layer
+            map.addLayer(polygons); // Tampilkan layer di peta
+        });
+
+        // Control Layer
+        var baseMaps = {
+
+        };
+
+        var overlayMaps = {
+            "Points": points,
+            "Polylines": polylines,
+            "Polygons": polygons,
+        };
+
+        var controllayer = L.control.layers(baseMaps, overlayMaps);
+        controllayer.addTo(map);
+
     </script>
 @endsection
