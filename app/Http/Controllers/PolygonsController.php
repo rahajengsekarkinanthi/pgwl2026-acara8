@@ -49,10 +49,23 @@ class PolygonsController extends Controller
             ]
         );
 
+        if (!is_dir('storage/images')) {
+            mkdir('./storage/images', 0777);
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name_image = time() . "_polygon." . strtolower($image->getClientOriginalExtension());
+            $image->move('storage/images', $name_image);
+        } else {
+            $name_image = null;
+        }
+
         $data = [
             'geom' => $request->geometry_polygon,
             'name' => $request->name,
             'description' => $request->description,
+            'image' => $name_image,
         ];
 
         // Simpan data ke database

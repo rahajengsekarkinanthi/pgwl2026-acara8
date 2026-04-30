@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 
 class pointsController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->points = new pointsModel();
     }
 
     /**
      * Display a listing of the resource.
      */
-    
+
     public function index()
     {
         //
@@ -38,6 +39,7 @@ class pointsController extends Controller
                 'geometry_point' => 'required',
                 'name' => 'required|string|max:255',
                 'description' => 'required|string',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
             ],
             [
                 'geometry_point.required' => 'Field geometry point harus diisi.',
@@ -46,13 +48,28 @@ class pointsController extends Controller
                 'name.max' => 'Field name tidak boleh lebih dari 255 karakter.',
                 'description.required' => 'Field description harus diisi.',
                 'description.string' => 'Field description harus berupa string.',
+                'image.image' => 'File gambar harus berformat jpg, jpeg, ataupng',
+                'image.max' => 'Ukuran file gambar tidak boleh lebih dari 2 M'
             ]
         );
-        
-        $data =[
+
+        if (!is_dir('storage/images')) {
+            mkdir('./storage/images', 0777);
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name_image = time() . "_point." . strtolower($image->getClientOriginalExtension());
+            $image->move('storage/images', $name_image);
+        } else {
+            $name_image = null;
+        }
+
+        $data = [
             'geom' => $request->input('geometry_point'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
+            'image' => $name_image,
         ];
 
         // Simpan data ke database

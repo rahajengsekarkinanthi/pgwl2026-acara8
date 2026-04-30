@@ -8,6 +8,7 @@ class PageController extends Controller
     {
         $data = [
             'title' => 'Peta',
+            'icon' => 'fa-regular fa-map'
         ];
         
         return view('map', $data);
@@ -17,6 +18,7 @@ class PageController extends Controller
     {
         $data = [
             'title' => 'Tabel',
+            'icon' => 'fa-solid fa-table'
         ];
         
         return view('table', $data);
