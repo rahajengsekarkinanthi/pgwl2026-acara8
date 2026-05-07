@@ -108,6 +108,23 @@ class PolylinesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $image = $this->polylines->find($id)->image;
+
+        // Proses menghapus gambar
+        if($image !=null) {
+            // Cek apakah file gambar ada sebelum dihapus
+            if(file_exists('./storage/images/'. $image)) {
+                // Hapus file gambar
+                unlink('./storage/images/' . $image);
+            }
+        }
+
+         // Simpan data ke database
+        if (!$this->polylines->destroy($id)) {
+            return redirect()->route('peta')->with('error', 'Gagal menghapus data polyline.');
+        }
+
+        // Kembali ke halaman peta
+        return redirect()->route('peta')->with('success', 'Data polyline berhasil dihapus.');
     }
 }

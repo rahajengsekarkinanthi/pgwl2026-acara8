@@ -225,11 +225,18 @@
 
         var points = L.geoJSON(null, {
             onEachFeature: function (feature, layer) {
+
+                var routedelete = "{{ route('points.delete', ':id') }}";
+                routedelete = routedelete.replace(':id', feature.properties.id);
+
                 var popup_content =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
                     "Dibuat: " + feature.properties.created_at + "<br>" +
-                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' class='img-thumbnail' width='400'>";
+                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' class='img-thumbnail' width='400'>" +"<br><br>" +
+                    "<form action='" + routedelete + "' method='post'>" + '@csrf' + '@method("delete")' +
+                    "<button type='submit' class='btn btn-sm btn-danger' title='Delete' onclick='return confirm(`Delete this feature?`)'><i class='fa-solid fa-trash-can'></i></button>" + "</form>";
+
                 layer.bindPopup(popup_content);
             }
         })
@@ -242,11 +249,17 @@
 
         var polylines = L.geoJSON(null, {
             onEachFeature: function (feature, layer) {
+                
+                var routedelete = "{{ route('polylines.delete', ':id') }}";
+                routedelete = routedelete.replace(':id', feature.properties.id);
+
                 var popup_content =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
                     "Dibuat: " + feature.properties.created_at + "<br>" +
-                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' class='img-thumbnail' width='400'>";
+                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' class='img-thumbnail' width='400'>" +"<br><br>" +
+                    "<form action='" + routedelete + "' method='post'>" + '@csrf' + '@method("delete")' +
+                    "<button type='submit' class='btn btn-sm btn-danger' title='Delete' onclick='return confirm(`Delete this feature?`)'><i class='fa-solid fa-trash-can'></i></button>" + "</form>";
 
                 layer.bindPopup(popup_content);
             }
@@ -260,11 +273,17 @@
 
         var polygons = L.geoJSON(null, {
             onEachFeature: function (feature, layer) {
+                
+                var routedelete = "{{ route('polygons.delete', ':id') }}";
+                routedelete = routedelete.replace(':id', feature.properties.id);
+
                 var popup_content =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
                     "Dibuat: " + feature.properties.created_at + "<br>" +
-                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' class='img-thumbnail' width='400'>";
+                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' class='img-thumbnail' width='400'>" +"<br><br>" +
+                    "<form action='" + routedelete + "' method='post'>" + '@csrf' + '@method("delete")' +
+                    "<button type='submit' class='btn btn-sm btn-danger' title='Delete' onclick='return confirm(`Delete this feature?`)'><i class='fa-solid fa-trash-can'></i></button>" + "</form>";
 
                 layer.bindPopup(popup_content);
             }
