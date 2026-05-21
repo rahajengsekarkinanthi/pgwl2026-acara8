@@ -229,13 +229,23 @@
                 var routedelete = "{{ route('points.delete', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
 
+                var routeedit = "{{ route('points.edit', ':id') }}";
+                routeedit = routeedit.replace(':id', feature.properties.id);
+
                 var popup_content =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
                     "Dibuat: " + feature.properties.created_at + "<br>" +
                     "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' class='img-thumbnail' width='400'>" +"<br><br>" +
-                    "<form action='" + routedelete + "' method='post'>" + '@csrf' + '@method("delete")' +
-                    "<button type='submit' class='btn btn-sm btn-danger' title='Delete' onclick='return confirm(`Delete this feature?`)'><i class='fa-solid fa-trash-can'></i></button>" + "</form>";
+                    "<div class ='row'>" + 
+                        "<div class ='col-2'>"+
+                            "<form action='" + routedelete + "' method='post'>" + '@csrf' + '@method("delete")' +
+                            "<button type='submit' class='btn btn-sm btn-danger' title='Delete' onclick='return confirm(`Delete this feature?`)'><i class='fa-solid fa-trash-can'></i></button>" + "</form>" +
+                        "</div>"+ 
+                        "<div class ='col-6'>"+
+                            "<a href = '" + routeedit + "' class='btn btn-warning btn-sm' title='Edit point'><i class='fa-regular fa-pen-to-square'></i></a>" +
+                        "</div>"+
+                    "</div>";
 
                 layer.bindPopup(popup_content);
             }
@@ -253,14 +263,24 @@
                 var routedelete = "{{ route('polylines.delete', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
 
+                
+                var routeedit = "{{ route('polylines.edit', ':id') }}";
+                routeedit = routeedit.replace(':id', feature.properties.id);
+
                 var popup_content =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
                     "Dibuat: " + feature.properties.created_at + "<br>" +
                     "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' class='img-thumbnail' width='400'>" +"<br><br>" +
-                    "<form action='" + routedelete + "' method='post'>" + '@csrf' + '@method("delete")' +
-                    "<button type='submit' class='btn btn-sm btn-danger' title='Delete' onclick='return confirm(`Delete this feature?`)'><i class='fa-solid fa-trash-can'></i></button>" + "</form>";
-
+                    "<div class ='row'>" + 
+                        "<div class ='col-2'>"+
+                            "<form action='" + routedelete + "' method='post'>" + '@csrf' + '@method("delete")' +
+                            "<button type='submit' class='btn btn-sm btn-danger' title='Delete' onclick='return confirm(`Delete this feature?`)'><i class='fa-solid fa-trash-can'></i></button>" + "</form>" +
+                        "</div>"+ 
+                        "<div class ='col-6'>"+
+                            "<a href = '" + routeedit + "' class='btn btn-warning btn-sm' title='Edit point'><i class='fa-regular fa-pen-to-square'></i></a>" +
+                        "</div>"+
+                    "</div>";
                 layer.bindPopup(popup_content);
             }
         })
@@ -276,14 +296,24 @@
                 
                 var routedelete = "{{ route('polygons.delete', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
+                
+                var routeedit = "{{ route('polygons.edit', ':id') }}";
+                routeedit = routeedit.replace(':id', feature.properties.id);
 
                 var popup_content =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
                     "Dibuat: " + feature.properties.created_at + "<br>" +
                     "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' class='img-thumbnail' width='400'>" +"<br><br>" +
-                    "<form action='" + routedelete + "' method='post'>" + '@csrf' + '@method("delete")' +
-                    "<button type='submit' class='btn btn-sm btn-danger' title='Delete' onclick='return confirm(`Delete this feature?`)'><i class='fa-solid fa-trash-can'></i></button>" + "</form>";
+                    "<div class ='row'>" + 
+                        "<div class ='col-2'>"+
+                            "<form action='" + routedelete + "' method='post'>" + '@csrf' + '@method("delete")' +
+                            "<button type='submit' class='btn btn-sm btn-danger' title='Delete' onclick='return confirm(`Delete this feature?`)'><i class='fa-solid fa-trash-can'></i></button>" + "</form>" +
+                        "</div>"+ 
+                        "<div class ='col-6'>"+
+                            "<a href = '" + routeedit + "' class='btn btn-warning btn-sm' title='Edit point'><i class='fa-regular fa-pen-to-square'></i></a>" +
+                        "</div>"+
+                    "</div>";
 
                 layer.bindPopup(popup_content);
             }
