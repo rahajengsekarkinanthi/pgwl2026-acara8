@@ -8,11 +8,15 @@ use Illuminate\Support\Facades\Route;
 
 use function Pest\Laravel\post;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
-Route::get('/peta', [PageController::class, 'peta'])->name('peta');
+Route::get('/', [PageController::class, 'landingpage'])->name('home');
+
+Route::get('/peta', [PageController::class, 'peta'])
+->middleware(['auth', 'verified'])
+->name('peta');
 
 Route::get('/tabel', [PageController::class, 'tabel'])->name('tabel');
 

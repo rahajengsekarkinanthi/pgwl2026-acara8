@@ -1,6 +1,8 @@
 @extends('layouts.template')
 
 @section('styles')
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.8/css/dataTables.dataTables.css">
+
     <style>
         body {
             background-color: #f5f7fb;
@@ -37,65 +39,138 @@
             background-color: #f8f9fc;
             transition: 0.2s;
         }
-
     </style>
 @endsection
 
 @section('content')
 
     <div class="container mt-3">
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-header">
-                <h3>Data Lokasi</h3>
+                <h3>Tabel Data Point</h3>
             </div>
             <div class="card-body">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" id="tabledatapoint">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Nama Tempat</th>
                             <th>Deskripsi</th>
-                            <th>Alamat</th>
-                            <th>Gambar</th>
+                            <th>Foto</th>
+                            <th>Tanggal dibuat</th>
                         </tr>
                     </thead>
+
                     <tbody>
+                        @php
+                            $no = 1;
+                        @endphp
+
+                        @foreach ($points as $p)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $p['name'] }}</td>
+                                            <td>{{ $p['description'] }}</td>
+                                            <td>
+                                                <input type="image" src="{{ asset('storage/images') .
+                            '/' . $p['image'] }}" alt="" width="200">
+                                            </td>
+                                            <td>{{ $p['created_at'] }}</td>
+                                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                    <h3>Tabel Data Polyline</h3>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-bordered table-striped" id="tabledatapolyline">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Tempat</th>
+                                <th>Deskripsi</th>
+                                <th>Foto</th>
+                                <th>Tanggal dibuat</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @php
+                                $no = 1;
+                            @endphp
+
+                            @foreach ($polylines as $pl)
+                                                <tr>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $pl['name'] }}</td>
+                                                    <td>{{ $pl['description'] }}</td>
+                                                    <td>
+                                                        <input type="image" src="{{ asset('storage/images') .
+                                '/' . $pl['image'] }}" alt="" width="200">
+                                                    </td>
+                                                    <td>{{ $pl['created_at'] }}</td>
+                                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+
+        <div class="card  mb-4">
+
+            <div class="card-header m">
+                <h3>Tabel Data Polygon</h3>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-bordered table-striped" id="tabledatapolygon">
+                    <thead>
                         <tr>
-                            <td>1</td>
-                            <td>Tugu Yogyakarta</td>
-                            <td>Landmark ikonik di pusat kota Yogyakarta.</td>
-                            <td>Jl. Jend. Sudirman, Gowongan, Kec. Jetis, Kota Yogyakarta</td>
-                            <td><img src="{{ asset('images/tugu_yogyakarta.jpg') }}" width="150"></td>
+                            <th>No</th>
+                            <th>Nama Tempat</th>
+                            <th>Deskripsi</th>
+                            <th>Foto</th>
+                            <th>Tanggal dibuat</th>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Malioboro</td>
-                            <td>Pusat perbelanjaan dan jalan paling terkenal di Jogja.</td>
-                            <td>Jl. Malioboro, Sosromenduran, Gedong Tengen, Kota Yogyakarta</td>
-                            <td><img src="{{ asset('images/malioboro.png') }}" width="150"></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Keraton Yogyakarta</td>
-                            <td>Istana resmi Kesultanan Ngayogyakarta Hadiningrat.</td>
-                            <td>Jl. Rotowijayan Blok No. 1, Panembahan, Kec. Kraton, Kota Yogyakarta</td>
-                            <td><img src="{{ asset('images/keraton_yogyakarta.jpg') }}" width="150"></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Benteng Vredeburg</td>
-                            <td>Museum sejarah perjuangan nasional yang menempati bekas benteng pertahanan kolonial Belanda.
-                            </td>
-                            <td>Jl. Margo Mulyo No.6, Ngupasan, Kec. Gondomanan, Kota Yogyakarta</td>
-                            <td><img src="{{ asset('images/benteng_vredeburg.jpg') }}" width="150"></td>
-                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @php
+                            $no = 1;
+                        @endphp
+
+                        @foreach ($polygons as $pg)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $pg['name'] }}</td>
+                                            <td>{{ $pg['description'] }}</td>
+                                            <td>
+                                                <input type="image" src="{{ asset('storage/images') .
+                            '/' . $pg['image'] }}" alt="" width="200">
+                                            </td>
+                                            <td>{{ $pg['created_at'] }}</td>
+                                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
 @endsection
 
-</body>
-
-</html>
+@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.3.8/js/dataTables.js"></script>
+    <script>
+        new DataTable('#tabledatapoint');
+        new DataTable('#tabledatapolyline');
+        new DataTable('#tabledatapolygon');
+    </script>
+@endsection
